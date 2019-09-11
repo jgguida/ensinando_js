@@ -1,0 +1,136 @@
+﻿<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style type="text/css">
+        body {
+            font-size: 14px;
+            font-family: Tahoma;
+            background: linear-gradient(45deg, hsla(232, 91%, 49%, 1) 0%, hsla(232, 91%, 49%, 0) 70%), linear-gradient(135deg, hsla(185, 98%, 42%, 1) 10%, hsla(185, 98%, 42%, 0) 80%), linear-gradient(225deg, hsla(310, 98%, 47%, 1) 10%, hsla(310, 98%, 47%, 0) 80%), linear-gradient(315deg, hsla(67, 94%, 43%, 1) 100%, hsla(67, 94%, 43%, 0) 70%)
+        }
+        
+        h1 {
+            text-align: center
+        }
+        
+        .game {
+            margin: 0 auto;
+            width: 300px;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .game input[name="opt"] {
+            width: 100px;
+            height: 100px
+        }
+        
+        .wins {
+            background: rgb(10, 10, 10);
+            color: #fff
+        }
+        
+        .gamer {
+            margin-top: 10px;
+        }
+    </style>
+    <title>Desafio</title>
+</head>
+
+<body>
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
+              <h3 class="mb-0 text-white lh-100">Jogo Da velha</h3>
+                
+              </div>
+
+
+
+    <div class="container"><br />
+    <br>
+    <br>
+    <form class="game" name="game">
+        <div class="gamer">
+            Jogador 1:
+            <input type="text" name="X">
+        </div>
+        <div class="gamer">Jogador 2:
+            <input type="text" name="O">
+            <br>
+            <br>
+        </div>
+        <input type="button" name="opt" value="" onclick="process(0)">
+        <input type="button" name="opt" value="" onclick="process(1)">
+        <input type="button" name="opt" value="" onclick="process(2)">
+        <input type="button" name="opt" value="" onclick="process(3)">
+        <input type="button" name="opt" value="" onclick="process(4)">
+        <input type="button" name="opt" value="" onclick="process(5)">
+        <input type="button" name="opt" value="" onclick="process(6)">
+        <input type="button" name="opt" value="" onclick="process(7)">
+        <input type="button" name="opt" value="" onclick="process(8)">
+        <div>
+            <br>
+            <input type="button" class="btn btn-primary btn-lg btn-block" value="COMEÇAR DENOVO" onclick="reboot()">
+        </div>
+        <br>
+    </form></div>
+    <script type="text/javascript">
+        var clicks = 0;
+        var matrix = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+        ];
+
+        function process(pos) {
+        clicks++;
+        var type = (clicks % 2 === 0) ? "X" : "O";
+        document.game.opt[pos].value = type;
+        check(type);
+        }
+
+        function check(type) {
+        matrix.forEach(function(x) {
+            var count = 0;
+            x.forEach(function(y) {
+            if (document.game.opt[y] && document.game.opt[y].value === type)
+                count++;
+            });
+            if (count == 3) {
+            wins(x);
+            var person = (document.game[type].value || type);
+            swal('  ' + person + ' ganhou!!!');
+            }
+        });
+        }
+
+        function wins(x) {
+        x.forEach(function(i) {
+            document.game.opt[i].className = 'wins';
+        });
+        }
+
+        function reboot() {
+        for (x = 0; x <= 8; x++) {
+            document.game.opt[x].value = '';
+            document.game.opt[x].className = '';
+        }
+        document.game.X.value = '';
+        document.game.O.value = '';
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+
+</html>
